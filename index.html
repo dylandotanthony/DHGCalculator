@@ -3,88 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHG - Calculator </title>
+    <title> DHG - Calculator </title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans p-4 md:p-8">
 
-    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
-        
-        <!-- Shop Logo -->
+    <!-- Top Branding -->
+    <div class="max-w-7xl mx-auto mb-8">
         <img src="Logo.png" alt="Dylan's HomoMade Goods Logo" class="h-24 w-auto mx-auto block mb-4 rounded-full shadow-sm">
-        
-        <h1 class="text-2xl font-bold text-center text-cyan-400 mb-6">🍞 Dylan's HomoMade Goods - Calculator 🍞</h1>
+        <h1 class="text-2xl font-bold text-center text-cyan-400 mb-6">🍞 Dylan's HomoMade Goods - Calculator 🍞</h1>    </div>
 
-        <!-- Recipe Selection Dropdown -->
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="recipe-select">
-                Select Recipe
-            </label>
-            <select id="recipe-select" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-lg font-medium" onchange="loadRecipe()">
-                <option value="banana_pie">Banana Pie Sourdough</option>
-                <option value="bb_cin">Blueberry Cinnamon Sourdough</option>
-                <option value="blueberry_jack">Blueberry Jack Sourdough</option>
-                <option value="blueberry_lemon">Blueberry Lemon Sourdough</option>
-                <option value="blueberry">Blueberry Sourdough</option>
-                <option value="BB_E_muffs">Blueberry Sourdough English Muffs</option>
-                <option value="caramel_apple">Caramel Apple Sourdough</option>
-                <option value="carrot_cake">Carrot Cake Sourdough</option>
-                <option value="Chocolate_espresso">Chocolate Espresso Sourdough</option>
-                <option value="cin_apple">Cinnamon Apple Sourdough</option>
-                <option value="Cranberry_orange">Cranberry Orange Sourdough</option>
-                <option value="Dill_Dough">Dill Dough Sourdough</option>
-                <option value="garlic_parm">Garlic Parm Sourdough</option>
-                <option value="ginger_crust">GingerCrust Sourdough</option>
-                <option value="grilled_chz">Grilled Cheese Sourdough</option>
-                <option value="JC_E_muffs">Jala Chd Sourdough English Muffs</option>
-                <option value="jala_ched">Jalapeno Cheddar Cheese Sourdough</option>
-                <option value="og_bagels">OG Sourdough Bagels</option>
-                <option value="focaccia">OG Sourdough Focaccia</option>
-                <option value="og_loaf">OG Loaf</option>
-                <option value="Pep_pizza">Pepperoni Pizza Sourdough</option>
-                <option value="pumpkin">Pumpkin Sourdough</option>
-                <option value="roasted_chile">Roasted Chile Cheese Sourdough</option>
-                <option value="Rosemary_asiago">Rosemary Asiago Sourdough</option>
-                <option value="salty_dulce">Salty Dulce Sourdough</option>
-                <option value="english_muffs">Sourdough English Muffs</option>
-                <option value="sweet_cin">Sweet Cinnamon Sourdough</option>
-            </select>
+    <!-- 3-Column Grid Container -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- ================= CARD 1 ================= -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-indigo-500">
+            <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 1</h2>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
+                <!-- YOU ONLY NEED TO UPDATE THIS MENU. CARDS 2 AND 3 COPY IT AUTOMATICALLY -->
+                <select id="recipe-select-1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-lg font-medium" onchange="loadRecipe(1)">
+                    <option value="banana_pie">Banana Pie Sourdough</option>
+                    <option value="bb_cin">Blueberry Cinnamon Sourdough</option>
+                    <option value="blueberry_jack">Blueberry Jack Sourdough</option>
+                    <option value="blueberry_lemon">Blueberry Lemon Sourdough</option>
+                    <option value="blueberry">Blueberry Sourdough</option>
+                    <option value="BB_E_muffs">Blueberry Sourdough English Muffs</option>
+                    <option value="caramel_apple">Caramel Apple Sourdough</option>
+                    <option value="carrot_cake">Carrot Cake Sourdough</option>
+                    <option value="Chocolate_espresso">Chocolate Espresso Sourdough</option>
+                    <option value="cin_apple">Cinnamon Apple Sourdough</option>
+                    <option value="Cranberry_orange">Cranberry Orange Sourdough</option>
+                    <option value="Dill_Dough">Dill Dough Sourdough</option>
+                    <option value="garlic_parm">Garlic Parm Sourdough</option>
+                    <option value="ginger_crust">GingerCrust Sourdough</option>
+                    <option value="grilled_chz">Grilled Cheese Sourdough</option>
+                    <option value="JC_E_muffs">Jala Chd Sourdough English Muffs</option>
+                    <option value="jala_ched">Jalapeno Cheddar Cheese Sourdough</option>
+                    <option value="og_bagels">OG Sourdough Bagels</option>
+                    <option value="focaccia">OG Sourdough Focaccia</option>
+                    <option value="og_loaf" selected>OG Loaf</option>
+                    <option value="Pep_pizza">Pepperoni Pizza Sourdough</option>
+                    <option value="pumpkin">Pumpkin Sourdough</option>
+                    <option value="roasted_chile">Roasted Chile Cheese Sourdough</option>
+                    <option value="Rosemary_asiago">Rosemary Asiago Sourdough</option>
+                    <option value="salty_dulce">Salty Dulce Sourdough</option>
+                    <option value="english_muffs">Sourdough English Muffs</option>
+                    <option value="sweet_cin">Sweet Cinnamon Sourdough</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Multiplier</label>
+                    <input type="number" id="multiplier-1" value="1" step="0.1" min="0.1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByMultiplier(1)">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Target Weight (g)</label>
+                    <input type="number" id="target-weight-1" step="10" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByTarget(1)">
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div class="flex justify-between items-center mb-1 border-b pb-2">
+                    <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider" id="scaling-mode-1">Mode: Standard</span>
+                </div>
+                <ul id="ingredient-list-1" class="space-y-1"></ul>
+                <div class="mt-4 pt-3 border-t-2 border-gray-300 flex justify-between font-bold text-lg">
+                    <span>Yield:</span><span id="total-yield-1" class="text-indigo-600">0g</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Scaling Controls Grid -->
-        <div class="grid grid-cols-2 gap-4 mb-6">
-            <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="multiplier">
-                    Batch Multiplier
-                </label>
-                <input type="number" id="multiplier" value="1" step="0.1" min="0.1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByMultiplier()">
+        <!-- ================= CARD 2 ================= -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-emerald-500">
+            <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 2</h2>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
+                <!-- JS will auto-fill this -->
+                <select id="recipe-select-2" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white text-lg font-medium" onchange="loadRecipe(2)"></select>
             </div>
-            <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="target-weight">
-                    Target Total Weight (g)
-                </label>
-                <input type="number" id="target-weight" step="10" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByTarget()">
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Multiplier</label>
+                    <input type="number" id="multiplier-2" value="1" step="0.1" min="0.1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg" oninput="scaleByMultiplier(2)">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Target Weight (g)</label>
+                    <input type="number" id="target-weight-2" step="10" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg" oninput="scaleByTarget(2)">
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div class="flex justify-between items-center mb-1 border-b pb-2">
+                    <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider" id="scaling-mode-2">Mode: Standard</span>
+                </div>
+                <ul id="ingredient-list-2" class="space-y-1"></ul>
+                <div class="mt-4 pt-3 border-t-2 border-gray-300 flex justify-between font-bold text-lg">
+                    <span>Yield:</span><span id="total-yield-2" class="text-emerald-600">0g</span>
+                </div>
             </div>
         </div>
 
-        <!-- Results Table -->
-        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <div class="flex justify-between items-center mb-1 border-b pb-2">
-                <h2 class="text-lg font-bold">Scaled Ingredients</h2>
-                <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider" id="scaling-mode">Mode: Standard</span>
+        <!-- ================= CARD 3 ================= -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-amber-500">
+            <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 3</h2>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
+                <!-- JS will auto-fill this -->
+                <select id="recipe-select-3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white text-lg font-medium" onchange="loadRecipe(3)"></select>
             </div>
-            <ul id="ingredient-list" class="space-y-1">
-                <!-- Injected via JS -->
-            </ul>
-            <div class="mt-4 pt-3 border-t-2 border-gray-300 flex justify-between font-bold text-lg">
-                <span>Total Yield:</span>
-                <span id="total-yield" class="text-indigo-600">0g</span>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Multiplier</label>
+                    <input type="number" id="multiplier-3" value="1" step="0.1" min="0.1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-lg" oninput="scaleByMultiplier(3)">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Target Weight (g)</label>
+                    <input type="number" id="target-weight-3" step="10" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-lg" oninput="scaleByTarget(3)">
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div class="flex justify-between items-center mb-1 border-b pb-2">
+                    <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider" id="scaling-mode-3">Mode: Standard</span>
+                </div>
+                <ul id="ingredient-list-3" class="space-y-1"></ul>
+                <div class="mt-4 pt-3 border-t-2 border-gray-300 flex justify-between font-bold text-lg">
+                    <span>Yield:</span><span id="total-yield-3" class="text-amber-600">0g</span>
+                </div>
             </div>
         </div>
+
     </div>
 
     <script>
-        // Your Master Recipe Database separated by Dough & Inclusions
+        // Copy Dropdown Options to Cards 2 and 3 so you only ever have to edit Card 1
+        const optionsHtml = document.getElementById('recipe-select-1').innerHTML;
+        document.getElementById('recipe-select-2').innerHTML = optionsHtml;
+        document.getElementById('recipe-select-3').innerHTML = optionsHtml;
+
+        // Your Master Recipe Database
         const recipes = {
             "og_loaf": {
                 dough: [
@@ -428,60 +486,59 @@
             }
         };
 
-        let baseTotalWeight = 0;
+        // We store the base weight for each card independently
+        let baseWeights = { 1: 0, 2: 0, 3: 0 };
 
-        function loadRecipe() {
-            const recipeKey = document.getElementById('recipe-select').value;
+        function loadRecipe(cardId) {
+            const recipeKey = document.getElementById(`recipe-select-${cardId}`).value;
             const recipe = recipes[recipeKey];
             
-            // Calculate baseline total weight by adding both arrays
-            baseTotalWeight = 0;
-            if (recipe.dough) baseTotalWeight += recipe.dough.reduce((sum, item) => sum + item.weight, 0);
-            if (recipe.inclusions) baseTotalWeight += recipe.inclusions.reduce((sum, item) => sum + item.weight, 0);
+            let weight = 0;
+            if (recipe.dough) weight += recipe.dough.reduce((sum, item) => sum + item.weight, 0);
+            if (recipe.inclusions) weight += recipe.inclusions.reduce((sum, item) => sum + item.weight, 0);
             
-            document.getElementById('multiplier').value = 1;
-            document.getElementById('target-weight').value = baseTotalWeight;
+            baseWeights[cardId] = weight;
             
-            calculate(1, "Standard");
+            document.getElementById(`multiplier-${cardId}`).value = 1;
+            document.getElementById(`target-weight-${cardId}`).value = weight;
+            
+            calculate(cardId, 1, "Standard");
         }
 
-        function scaleByMultiplier() {
-            const multField = document.getElementById('multiplier');
+        function scaleByMultiplier(cardId) {
+            const multField = document.getElementById(`multiplier-${cardId}`);
             let multiplier = parseFloat(multField.value) || 0;
             
-            document.getElementById('target-weight').value = Math.round(baseTotalWeight * multiplier);
-            calculate(multiplier, "Multiplier");
+            document.getElementById(`target-weight-${cardId}`).value = Math.round(baseWeights[cardId] * multiplier);
+            calculate(cardId, multiplier, "Multiplier");
         }
 
-        function scaleByTarget() {
-            const targetField = document.getElementById('target-weight');
+        function scaleByTarget(cardId) {
+            const targetField = document.getElementById(`target-weight-${cardId}`);
             let targetWeight = parseFloat(targetField.value) || 0;
             
-            let calculatedMultiplier = targetWeight / baseTotalWeight;
-            document.getElementById('multiplier').value = calculatedMultiplier ? calculatedMultiplier.toFixed(2) : "";
+            let calculatedMultiplier = targetWeight / baseWeights[cardId];
+            document.getElementById(`multiplier-${cardId}`).value = calculatedMultiplier ? calculatedMultiplier.toFixed(2) : "";
             
-            calculate(calculatedMultiplier, "Target Weight");
+            calculate(cardId, calculatedMultiplier, "Target Weight");
         }
 
-        function calculate(multiplier, mode) {
-            const recipeKey = document.getElementById('recipe-select').value;
+        function calculate(cardId, multiplier, mode) {
+            const recipeKey = document.getElementById(`recipe-select-${cardId}`).value;
             const recipe = recipes[recipeKey];
             
-            const listContainer = document.getElementById('ingredient-list');
-            const totalYieldContainer = document.getElementById('total-yield');
-            document.getElementById('scaling-mode').innerText = `Mode: ${mode}`;
+            const listContainer = document.getElementById(`ingredient-list-${cardId}`);
+            const totalYieldContainer = document.getElementById(`total-yield-${cardId}`);
+            document.getElementById(`scaling-mode-${cardId}`).innerText = `Mode: ${mode}`;
             
             listContainer.innerHTML = '';
             let totalYield = 0;
 
-            // Helper function to render sections dynamically
             function renderSection(title, items, shouldSort) {
                 if (!items || items.length === 0) return;
                 
-                // Copy the array so we don't mess up the original database order
                 let displayItems = [...items];
 
-                // Only sort if we tell it to (we only want this for the dough section)
                 if (shouldSort) {
                     const priorityOrder = ["Starter", "Water", "Salt", "Flour"];
                     displayItems.sort((a, b) => {
@@ -495,13 +552,11 @@
                     });
                 }
                 
-                // Create Header
                 const headerLi = document.createElement('li');
-                headerLi.className = "text-sm font-bold text-gray-500 uppercase tracking-wider mt-4 mb-1 border-b-2 border-gray-200 pb-1";
+                headerLi.className = "text-sm font-bold text-gray-400 uppercase tracking-wider mt-4 mb-1 border-b-2 border-gray-200 pb-1";
                 headerLi.innerText = title;
                 listContainer.appendChild(headerLi);
 
-                // Add Items
                 displayItems.forEach(item => {
                     const scaledWeight = Math.round(item.weight * multiplier);
                     totalYield += scaledWeight;
@@ -513,15 +568,21 @@
                 });
             }
 
-            // Render Both Sections (Notice the 'true' turns on the sorter for Dough, 'false' keeps Inclusions as-is)
             renderSection("Base Dough", recipe.dough, true);
             renderSection("Inclusions / Extras", recipe.inclusions, false);
 
             totalYieldContainer.innerText = `${totalYield}g`;
         }
 
-        // Initialize the app on first page load
-        loadRecipe();
+        // Initialize all three cards on first load
+        // I pre-selected three different recipes just so it looks populated!
+        document.getElementById('recipe-select-1').value = 'og_loaf';
+        document.getElementById('recipe-select-2').value = 'roasted_chile';
+        document.getElementById('recipe-select-3').value = 'english_muffs';
+        
+        loadRecipe(1);
+        loadRecipe(2);
+        loadRecipe(3);
     </script>
 </body>
 </html>
