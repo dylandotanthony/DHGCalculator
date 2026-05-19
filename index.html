@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan's HomoMade Goods - Recipe Scaler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-4 md:p-8">
+
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
+        
+        <!-- Shop Logo -->
+        <img src="YOUR_IMAGE_LINK_HERE" alt="Dylan's HomoMade Goods Logo" class="h-24 w-auto mx-auto block mb-4 rounded-full shadow-sm">
+        
+        <h1 class="text-2xl font-bold text-center text-[#00f0ff] mb-6">🍞 Dylan’s HomoMade Goods Scaler</h1>
+
+        <!-- Recipe Selection Dropdown -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="recipe-select">
+                Select Recipe
+            </label>
+            <select id="recipe-select" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-lg font-medium" onchange="loadRecipe()">
+                <option value="banana_pie">Banana Pie Sourdough</option>
+                <option value="bb_cin">Blueberry Cinnamon Sourdough</option>
+                <option value="blueberry_jack">Blueberry Jack Sourdough</option>
+                <option value="blueberry_lemon">Blueberry Lemon Sourdough</option>
+                <option value="blueberry">Blueberry Sourdough</option>
+                <option value="BB_E_muffs">Blueberry Sourdough English Muffs</option>
+                <option value="caramel_apple">Caramel Apple Sourdough</option>
+                <option value="carrot_cake">Carrot Cake Sourdough</option>
+                <option value="Chocolate_espresso">Chocolate Espresso Sourdough</option>
+                <option value="cin_apple">Cinnamon Apple Sourdough</option>
+                <option value="Cranberry_orange">Cranberry Orange Sourdough</option>
+                <option value="Dill_Dough">Dill Dough Sourdough</option>
+                <option value="garlic_parm">Garlic Parm Sourdough</option>
+                <option value="ginger_crust">GingerCrust Sourdough</option>
+                <option value="grilled_chz">Grilled Cheese Sourdough</option>
+                <option value="JC_E_muffs">Jala Chd Sourdough English Muffs</option>
+                <option value="jala_ched">Jalapeno Cheddar Cheese Sourdough</option>
+                <option value="og_bagels">OG Sourdough Bagels</option>
+                <option value="focaccia">OG Sourdough Focaccia</option>
+                <option value="og_loaf">OG Loaf</option>
+                <option value="Pep_pizza">Pepperoni Pizza Sourdough</option>
+                <option value="pumpkin">Pumpkin Sourdough</option>
+                <option value="roasted_chile">Roasted Chile Cheese Sourdough</option>
+                <option value="Rosemary_asiago">Rosemary Asiago Sourdough</option>
+                <option value="salty_dulce">Salty Dulce Sourdough</option>
+                <option value="english_muffs">Sourdough English Muffs</option>
+                <option value="sweet_cin">Sweet Cinnamon Sourdough</option>
+            </select>
+        </div>
+
+        <!-- Scaling Controls Grid -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="multiplier">
+                    Batch Multiplier
+                </label>
+                <input type="number" id="multiplier" value="1" step="0.1" min="0.1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByMultiplier()">
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="target-weight">
+                    Target Total Weight (g)
+                </label>
+                <input type="number" id="target-weight" step="10" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg" oninput="scaleByTarget()">
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex justify-between items-center mb-1 border-b pb-2">
+                <h2 class="text-lg font-bold">Scaled Ingredients</h2>
+                <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider" id="scaling-mode">Mode: Standard</span>
+            </div>
+            <ul id="ingredient-list" class="space-y-1">
+                <!-- Injected via JS -->
+            </ul>
+            <div class="mt-4 pt-3 border-t-2 border-gray-300 flex justify-between font-bold text-lg">
+                <span>Total Yield:</span>
+                <span id="total-yield" class="text-indigo-600">0g</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Your Master Recipe Database separated by Dough & Inclusions
+        const recipes = {
+            "og_loaf": {
+                dough: [
+                    { name: "Flour", weight: 476 },
+                    { name: "Water", weight: 295 },
+                    { name: "Starter", weight: 119 },
+                    { name: "Salt", weight: 15 }
+                ],
+                inclusions: []
+            },
+            "roasted_chile": {
+                dough: [
+                    { name: "Flour", weight: 405 },
+                    { name: "Water", weight: 251 },
+                    { name: "Starter", weight: 101 },
+                    { name: "Salt", weight: 13 }
+                ],
+                inclusions: [
+                    { name: "Roasted Green Chile", weight: 61 },
+                    { name: "Cheese Mix", weight: 73 }
+                ]
+            },
+            "jala_ched": {
+                dough: [
+                    { name: "Flour", weight: 405 },
+                    { name: "Water", weight: 251 },
+                    { name: "Starter", weight: 101 },
+                    { name: "Salt", weight: 13 }
+                ],
+                inclusions: [
+                    { name: "Jalapeno", weight: 61 },
+                    { name: "Cheddar Cheese", weight: 73 }
+                ]
+            },
+            "grilled_chz": {
+                dough: [
+                    { name: "Flour", weight: 433 },
+                    { name: "Water", weight: 268 },
+                    { name: "Starter", weight: 108 },
+                    { name: "Salt", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Jalapeno", weight: 61 },
+                    { name: "Cheese Mix", weight: 87 }
+                ]
+            },
+            "caramel_apple": {
+                dough: [
+                    { name: "Flour", weight: 433 },
+                    { name: "Water", weight: 139 },
+                    { name: "Apple Juice", weight: 139 },
+                    { name: "Starter", weight: 108 },
+                    { name: "Salt", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Dried Apples", weight: 35 },
+                    { name: "Caramel Chips", weight: 43 }
+                ]
+            },
+            "salty_dulce": {
+                dough: [
+                    { name: "Flour", weight: 450 },
+                    { name: "Water", weight: 279 },
+                    { name: "Starter", weight: 113 },
+                    { name: "Salt", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Flakey Salt Topping", weight: 0 },
+                    { name: "Caramel Chips", weight: 60 }
+                ]
+            },
+            "blueberry": {
+                dough: [
+                    { name: "Flour", weight: 450 },
+                    { name: "Water", weight: 279 },
+                    { name: "Starter", weight: 113 },
+                    { name: "Salt", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Dried Blueberries", weight: 60 }
+                ]
+            },
+            "blueberry_lemon": {
+                dough: [
+                    { name: "Flour", weight: 424 },
+                    { name: "Water", weight: 263 },
+                    { name: "Starter", weight: 106 },
+                    { name: "Salt", weight: 14 },
+                    { name: "White Sugar", weight: 34 },
+                    { name: "Lemon", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Dried Blueberries", weight: 51 }
+                ]
+            },
+            "Cranberry_orange": {
+                dough: [
+                    { name: "Flour", weight: 426 },
+                    { name: "Water", weight: 264 },
+                    { name: "Starter", weight: 102 },
+                    { name: "Salt", weight: 14 },
+                    { name: "White Sugar", weight: 34 },
+                    { name: "Lemon", weight: 14 }
+                ],
+                inclusions: [
+                    { name: "Dried Cranberries", weight: 51 }
+                ]
+            },
+            "carrot_cake": {
+                dough: [
+                    { name: "Flour", weight: 374 },
+                    { name: "Water", weight: 232 },
+                    { name: "Starter", weight: 90 },
+                    { name: "Salt", weight: 12 },
+                    { name: "Brown Sugar", weight: 37 },
+                    { name: "Molasses", weight: 7 },
+                    { name: "Vanilla Extract", weight: 7 }
+                ],
+                inclusions: [
+                    { name: "Carrots", weight: 75 },
+                    { name: "Rasins", weight: 75 }
+                ]
+            },
+            "Dill_Dough": {
+                dough: [
+                    { name: "Flour", weight: 463 },
+                    { name: "Water", weight: 185 },
+                    { name: "Pickle Juice", weight: 93 },
+                    { name: "Starter", weight: 111 },
+                    { name: "Pickle Salt", weight: 6 }
+                ],
+                inclusions: [
+                    { name: "Pickles", weight: 46 }
+                ]
+            },
+            "garlic_parm": {
+                dough: [
+                    { name: "Flour", weight: 435 },
+                    { name: "Water", weight: 269 },
+                    { name: "Starter", weight: 104 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Garlic Head", weight: 1 }
+                ],
+                inclusions: [
+                    { name: "Jalapeno", weight: 61 },
+                    { name: "Parm Cheese", weight: 87 }
+                ]
+            },
+            "Chocolate_espresso": {
+                dough: [
+                    { name: "Flour", weight: 429 },
+                    { name: "Water", weight: 253 },
+                    { name: "Starter", weight: 103 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Brown Sugar", weight: 34 },
+                    { name: "Espresso Powder", weight: 9 }
+                ],
+                inclusions: [
+                    { name: "Chocolate Chips", weight: 69 }
+                ]
+            },
+            "Rosemary_asiago": {
+                dough: [
+                    { name: "Flour", weight: 434 },
+                    { name: "Water", weight: 269 },
+                    { name: "Starter", weight: 104 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Chopped Rosemary", weight: 6 }
+                ],
+                inclusions: [
+                    { name: "Asiago Cheese", weight: 78 }
+                ]
+            },
+            "banana_pie": {
+                dough: [
+                    { name: "Flour", weight: 399 },
+                    { name: "Water", weight: 247 },
+                    { name: "Starter", weight: 100 },
+                    { name: "Salt", weight: 13 },
+                    { name: "Bana Pudding Mix", weight: 96 }
+                ],
+                inclusions: [
+                    { name: "Cookies Fold in", weight: 60 },
+                    { name: "Cookies Dusters", weight: 20 }
+                ]
+            },
+            "Pep_pizza": {
+                dough: [
+                    { name: "Flour", weight: 415 },
+                    { name: "Water", weight: 253 },
+                    { name: "Starter", weight: 100 },
+                    { name: "Salt", weight: 13 },
+                    { name: "Italian Seasoning", weight: 96 },
+                    { name: "Dried Onion", weight: 60 },
+                    { name: "Garlic Head", weight: 1 }
+                ],
+                inclusions: [
+                    { name: "Pepper Flakes", weight: 20 },
+                    { name: "Pepperoni", weight: 60 },
+                    { name: "Mozz Chz", weight: 20 }
+                ]
+            },
+            "ginger_crust": {
+                dough: [
+                    { name: "Flour", weight: 416 },
+                    { name: "Water", weight: 241 },
+                    { name: "Starter", weight: 100 },
+                    { name: "Salt", weight: 13 },
+                    { name: "Brown Sugar", weight: 42 },
+                    { name: "Molasses", weight: 83 },
+                    { name: "Vanilla Extract", weight: 4 },
+                    { name: "Ginger", weight: 6 }
+                ],
+                inclusions: [
+                    { name: "PS SUGAR ROLL IN", weight: 20 }
+                ]
+            },
+            "bb_cin": {
+                dough: [
+                    { name: "Flour", weight: 427 },
+                    { name: "Water", weight: 256 },
+                    { name: "Starter", weight: 100 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Brown Sugar", weight: 13 },
+                    { name: "Vanilla Extract", weight: 4 }
+                ],
+                inclusions: [
+                    { name: "Dried Blueberries", weight: 43 },
+                    { name: "CIN BUTTER", weight: 1 }
+                ]
+            },
+            "sweet_cin": {
+                dough: [
+                    { name: "Flour", weight: 442 },
+                    { name: "Water", weight: 270 },
+                    { name: "Starter", weight: 106 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Brown Sugar", weight: 13 },
+                    { name: "Vanilla Extract", weight: 4 }
+                ],
+                inclusions: [
+                    { name: "CIN BUTTER", weight: 1 }
+                ]
+            },
+            "cin_apple": {
+                dough: [
+                    { name: "Flour", weight: 431 },
+                    { name: "Water", weight: 129 },
+                    { name: "Apple Juice", weight: 129 },
+                    { name: "Starter", weight: 103 },
+                    { name: "Salt", weight: 14 },
+                    { name: "Vanilla Extract", weight: 4 }
+                ],
+                inclusions: [
+                    { name: "Dried Apples", weight: 39 },
+                    { name: "CIN BUTTER", weight: 1 }
+                ]
+            },
+            "pumpkin": {
+                dough: [
+                    { name: "Flour", weight: 431 },
+                    { name: "Water", weight: 190 },
+                    { name: "Pumpkin Puree", weight: 173 },
+                    { name: "Starter", weight: 86 },
+                    { name: "Salt", weight: 9 },
+                    { name: "Blue Agave", weight: 17 }
+                ],
+                inclusions: []
+            },
+            "english_muffs": {
+                dough: [
+                    { name: "Flour", weight: 61 },
+                    { name: "Milk", weight: 35 },
+                    { name: "Starter", weight: 16 },
+                    { name: "Salt", weight: 2 },
+                    { name: "Blue Agave", weight: 3 }
+                ],
+                inclusions: [
+                    { name: "Cornmeal Dusting", weight: 0 }
+                ]
+            },
+            "JC_E_muffs": {
+                dough: [
+                    { name: "Flour", weight: 50 },
+                    { name: "Milk", weight: 29 },
+                    { name: "Starter", weight: 13 },
+                    { name: "Salt", weight: 1 },
+                    { name: "Blue Agave", weight: 3 }
+                ],
+                inclusions: [
+                    { name: "Cheddar Cheese", weight: 10 },
+                    { name: "Jalapenos", weight: 10 },
+                    { name: "Cornmeal Dusting", weight: 0 }
+                ]
+            },
+            "BB_E_muffs": {
+                dough: [
+                    { name: "Flour", weight: 54 },
+                    { name: "Milk", weight: 30 },
+                    { name: "Starter", weight: 14 },
+                    { name: "Salt", weight: 1 },
+                    { name: "Blue Agave", weight: 4 }
+                ],
+                inclusions: [
+                    { name: "Dried Blueberries", weight: 11 },
+                    { name: "Cornmeal Dusting", weight: 0 }
+                ]
+            },
+            "focaccia": {
+                dough: [
+                    { name: "Flour", weight: 240 },
+                    { name: "Water", weight: 149 },
+                    { name: "Starter", weight: 58 },
+                    { name: "Blue Agave", weight: 12 },
+                    { name: "Avocado Oil", weight: 10 }
+                ],
+                inclusions: []
+            },
+            "og_bagels": {
+                dough: [
+                    { name: "Flour", weight: 71 },
+                    { name: "Water", weight: 30 },
+                    { name: "Starter", weight: 22 },
+                    { name: "Blue Agave", weight: 4 },
+                    { name: "Brown Sugar", weight: 4 },
+                    { name: "Salt", weight: 2.2 }
+                ],
+                inclusions: []
+            },
+            "blueberry_jack": {
+                dough: [
+                    { name: "Flour", weight: 399 },
+                    { name: "Water", weight: 247 },
+                    { name: "Starter", weight: 100 },
+                    { name: "Salt", weight: 13 }
+                ],
+                inclusions: [
+                    { name: "Dried Blueberries", weight: 60 },
+                    { name: "Pepper Jack Cheese", weight: 92 }
+                ]
+            }
+        };
+
+        let baseTotalWeight = 0;
+
+        function loadRecipe() {
+            const recipeKey = document.getElementById('recipe-select').value;
+            const recipe = recipes[recipeKey];
+            
+            // Calculate baseline total weight by adding both arrays
+            baseTotalWeight = 0;
+            if (recipe.dough) baseTotalWeight += recipe.dough.reduce((sum, item) => sum + item.weight, 0);
+            if (recipe.inclusions) baseTotalWeight += recipe.inclusions.reduce((sum, item) => sum + item.weight, 0);
+            
+            document.getElementById('multiplier').value = 1;
+            document.getElementById('target-weight').value = baseTotalWeight;
+            
+            calculate(1, "Standard");
+        }
+
+        function scaleByMultiplier() {
+            const multField = document.getElementById('multiplier');
+            let multiplier = parseFloat(multField.value) || 0;
+            
+            document.getElementById('target-weight').value = Math.round(baseTotalWeight * multiplier);
+            calculate(multiplier, "Multiplier");
+        }
+
+        function scaleByTarget() {
+            const targetField = document.getElementById('target-weight');
+            let targetWeight = parseFloat(targetField.value) || 0;
+            
+            let calculatedMultiplier = targetWeight / baseTotalWeight;
+            document.getElementById('multiplier').value = calculatedMultiplier ? calculatedMultiplier.toFixed(2) : "";
+            
+            calculate(calculatedMultiplier, "Target Weight");
+        }
+
+        function calculate(multiplier, mode) {
+            const recipeKey = document.getElementById('recipe-select').value;
+            const recipe = recipes[recipeKey];
+            
+            const listContainer = document.getElementById('ingredient-list');
+            const totalYieldContainer = document.getElementById('total-yield');
+            document.getElementById('scaling-mode').innerText = `Mode: ${mode}`;
+            
+            listContainer.innerHTML = '';
+            let totalYield = 0;
+
+            // Helper function to render sections dynamically
+            function renderSection(title, items, shouldSort) {
+                if (!items || items.length === 0) return;
+                
+                // Copy the array so we don't mess up the original database order
+                let displayItems = [...items];
+
+                // Only sort if we tell it to (we only want this for the dough section)
+                if (shouldSort) {
+                    const priorityOrder = ["Starter", "Water", "Salt", "Flour"];
+                    displayItems.sort((a, b) => {
+                        let rankA = priorityOrder.indexOf(a.name);
+                        let rankB = priorityOrder.indexOf(b.name);
+                        
+                        if (rankA === -1) rankA = 100;
+                        if (rankB === -1) rankB = 100;
+                        
+                        return rankA - rankB;
+                    });
+                }
+                
+                // Create Header
+                const headerLi = document.createElement('li');
+                headerLi.className = "text-sm font-bold text-gray-500 uppercase tracking-wider mt-4 mb-1 border-b-2 border-gray-200 pb-1";
+                headerLi.innerText = title;
+                listContainer.appendChild(headerLi);
+
+                // Add Items
+                displayItems.forEach(item => {
+                    const scaledWeight = Math.round(item.weight * multiplier);
+                    totalYield += scaledWeight;
+
+                    const li = document.createElement('li');
+                    li.className = "flex justify-between text-gray-700 text-lg py-1 border-b border-gray-100 last:border-none pl-2";
+                    li.innerHTML = `<span>${item.name}</span> <span class="font-bold text-gray-900">${scaledWeight}g</span>`;
+                    listContainer.appendChild(li);
+                });
+            }
+
+            // Render Both Sections (Notice the 'true' turns on the sorter for Dough, 'false' keeps Inclusions as-is)
+            renderSection("Base Dough", recipe.dough, true);
+            renderSection("Inclusions / Extras", recipe.inclusions, false);
+
+            totalYieldContainer.innerText = `${totalYield}g`;
+        }
+
+        // Initialize the app on first page load
+        loadRecipe();
+    </script>
+</body>
+</html>
