@@ -8,49 +8,55 @@
 </head>
 <body class="bg-slate-700 text-black font-sans p-4 md:p-8">
 
-    <!-- Top Branding -->
     <div class="max-w-7xl mx-auto mb-8">
         <img src="Logo.png" alt="Dylan's HomoMade Goods Logo" class="h-24 w-auto mx-auto block mb-4 rounded-full shadow-sm">
         <h1 class="text-4xl font-bold text-center text-cyan-400 mb-6">🍞 Dylan's HomoMade Goods - Calculator 🍞</h1>    </div>
 
-    <!-- 3-Column Grid Container -->
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- ================= CARD 1 ================= -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-indigo-500">
             <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 1</h2>
             
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
-                <!-- YOU ONLY NEED TO UPDATE THIS MENU. CARDS 2 AND 3 COPY IT AUTOMATICALLY -->
                 <select id="recipe-select-1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-lg font-medium" onchange="loadRecipe(1)">
+                    <option value="apple_Cin_focaccia">Apple Cinnamon Focaccia</option>
                     <option value="banana_pie">Banana Pie Sourdough</option>
+                    <option value="BB_bagels">Blueberry Bagels</option>
                     <option value="bb_cin">Blueberry Cinnamon Sourdough</option>
+                    <option value="bb_Cin_focaccia">Blueberry Cinnamon Focaccia</option>
                     <option value="blueberry_jack">Blueberry Jack Sourdough</option>
                     <option value="blueberry_lemon">Blueberry Lemon Sourdough</option>
                     <option value="blueberry">Blueberry Sourdough</option>
                     <option value="BB_E_muffs">Blueberry Sourdough English Muffs</option>
                     <option value="caramel_apple">Caramel Apple Sourdough</option>
+                    <option value="CA_focaccia">Caramel Apple Focaccia</option>
                     <option value="carrot_cake">Carrot Cake Sourdough</option>
                     <option value="Chocolate_espresso">Chocolate Espresso Sourdough</option>
                     <option value="cin_apple">Cinnamon Apple Sourdough</option>
+                    <option value="cin_butter">Cinnamon Butter</option>
                     <option value="Cranberry_orange">Cranberry Orange Sourdough</option>
                     <option value="Dill_Dough">Dill Dough Sourdough</option>
                     <option value="garlic_parm">Garlic Parm Sourdough</option>
+                    <option value="Gar_Parm_focaccia">Garlic Parm Focaccia</option>
                     <option value="ginger_crust">GingerCrust Sourdough</option>
                     <option value="grilled_chz">Grilled Cheese Sourdough</option>
                     <option value="JC_E_muffs">Jala Chd Sourdough English Muffs</option>
                     <option value="jala_ched">Jalapeno Cheddar Cheese Sourdough</option>
+                    <option value="Jal_Chile_bagels">Jalapeno Chile Bagels</option>
                     <option value="og_bagels">OG Sourdough Bagels</option>
                     <option value="focaccia">OG Sourdough Focaccia</option>
                     <option value="og_loaf" selected>OG Loaf</option>
                     <option value="Pep_pizza">Pepperoni Pizza Sourdough</option>
                     <option value="pumpkin">Pumpkin Sourdough</option>
+                    <option value="PS_butter">Pumpkin Spice Butter</option>
                     <option value="roasted_chile">Roasted Chile Cheese Sourdough</option>
+                    <option value="rollies">Rollies</option>
                     <option value="Rosemary_asiago">Rosemary Asiago Sourdough</option>
                     <option value="salty_dulce">Salty Dulce Sourdough</option>
                     <option value="english_muffs">Sourdough English Muffs</option>
                     <option value="sweet_cin">Sweet Cinnamon Sourdough</option>
+                    <option value="tortilla">Sourdough Tortillas</option>
                 </select>
             </div>
 
@@ -76,12 +82,10 @@
             </div>
         </div>
 
-        <!-- ================= CARD 2 ================= -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-emerald-500">
             <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 2</h2>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
-                <!-- JS will auto-fill this -->
                 <select id="recipe-select-2" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white text-lg font-medium" onchange="loadRecipe(2)"></select>
             </div>
             <div class="grid grid-cols-2 gap-4 mb-6">
@@ -105,12 +109,10 @@
             </div>
         </div>
 
-        <!-- ================= CARD 3 ================= -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-amber-500">
             <h2 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wide">Mix 3</h2>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Select Recipe</label>
-                <!-- JS will auto-fill this -->
                 <select id="recipe-select-3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white text-lg font-medium" onchange="loadRecipe(3)"></select>
             </div>
             <div class="grid grid-cols-2 gap-4 mb-6">
@@ -173,8 +175,8 @@
                     { name: "Salt", weight: 13 }
                 ],
                 inclusions: [
-                    { name: "Roasted Green Chile", weight: 60.8 },
-                    { name: "Cheese Mix", weight: 73 }
+                    { name: "Jalapeno", weight: 60.8 },
+                    { name: "Cheddar Cheese", weight: 73 }
                 ]
             },
             "grilled_chz": {
@@ -502,9 +504,8 @@
                     { name: "Avocado Oil", weight: 8.7 }
                 ],
                 inclusions: [
-                    { name: "Dried Blueberries", weight: 32.4 }
+                    { name: "Dried Blueberries", weight: 32.4 },
                     { name: "Cinnamon Sugar", weight: 0 }
-                    
                 ]
             },
             "apple_Cin_focaccia": {
@@ -520,9 +521,8 @@
                     { name: "Avocado Oil", weight: 8.7 }
                 ],
                 inclusions: [
-                    { name: "Apples", weight: 34.7 }
+                    { name: "Apples", weight: 34.7 },
                     { name: "Cinnamon Sugar", weight: 0 }
-                    
                 ]
             },
             "CA_focaccia": {
@@ -536,7 +536,7 @@
                     { name: "Avocado Oil", weight: 9 }
                 ],
                 inclusions: [
-                    { name: "Caramel Chips", weight: 13.6 }
+                    { name: "Caramel Chips", weight: 13.6 },
                     { name: "Dried Apple", weight: 13.6 }
                 ]
             },
@@ -596,8 +596,8 @@
                     { name: "Salt", weight: 2.1 }
                 ],
                 inclusions: [
-                    { name: "Dried Blueberry", weight: 7.4 },
-                                    ]
+                    { name: "Dried Blueberry", weight: 7.4 }
+                ]
             },
             "blueberry_jack": {
                 dough: [
@@ -685,12 +685,16 @@
                 listContainer.appendChild(headerLi);
 
                 displayItems.forEach(item => {
-                    const scaledWeight = Math.round(item.weight * multiplier);
-                    totalYield += scaledWeight;
+                    // Changed rounding from Math.round to toFixed(1) for finer decimal control, since you entered decimals for your new recipes!
+                    const scaledWeight = (item.weight * multiplier).toFixed(1);
+                    totalYield += parseFloat(scaledWeight);
+
+                    // Clean up trailing .0 so it looks clean for whole numbers
+                    const displayWeight = scaledWeight.endsWith('.0') ? scaledWeight.slice(0, -2) : scaledWeight;
 
                     const li = document.createElement('li');
                     li.className = "flex justify-between text-gray-700 text-lg py-1 border-b border-gray-100 last:border-none pl-2";
-                    li.innerHTML = `<span>${item.name}</span> <span class="font-bold text-gray-900">${scaledWeight}g</span>`;
+                    li.innerHTML = `<span>${item.name}</span> <span class="font-bold text-gray-900">${displayWeight}g</span>`;
                     listContainer.appendChild(li);
                 });
             }
@@ -698,11 +702,11 @@
             renderSection("Base Dough", recipe.dough, true);
             renderSection("Inclusions / Extras", recipe.inclusions, false);
 
-            totalYieldContainer.innerText = `${totalYield}g`;
+            const displayTotal = totalYield.toFixed(1).endsWith('.0') ? totalYield.toFixed(1).slice(0, -2) : totalYield.toFixed(1);
+            totalYieldContainer.innerText = `${displayTotal}g`;
         }
 
         // Initialize all three cards on first load
-        // I pre-selected three different recipes just so it looks populated!
         document.getElementById('recipe-select-1').value = 'og_loaf';
         document.getElementById('recipe-select-2').value = 'roasted_chile';
         document.getElementById('recipe-select-3').value = 'english_muffs';
