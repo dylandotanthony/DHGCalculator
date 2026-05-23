@@ -627,7 +627,7 @@
             baseWeights[cardId] = weight;
             
             document.getElementById(`multiplier-${cardId}`).value = 1;
-            document.getElementById(`target-weight-${cardId}`).value = weight;
+            document.getElementById(`target-weight-${cardId}`).value = Math.round(weight);
             
             calculate(cardId, 1, "Standard");
         }
@@ -685,16 +685,13 @@
                 listContainer.appendChild(headerLi);
 
                 displayItems.forEach(item => {
-                    // Changed rounding from Math.round to toFixed(1) for finer decimal control, since you entered decimals for your new recipes!
-                    const scaledWeight = (item.weight * multiplier).toFixed(1);
-                    totalYield += parseFloat(scaledWeight);
-
-                    // Clean up trailing .0 so it looks clean for whole numbers
-                    const displayWeight = scaledWeight.endsWith('.0') ? scaledWeight.slice(0, -2) : scaledWeight;
+                    // Changed back to Math.round() so all weights snap to nearest whole gram
+                    const scaledWeight = Math.round(item.weight * multiplier);
+                    totalYield += scaledWeight;
 
                     const li = document.createElement('li');
                     li.className = "flex justify-between text-gray-700 text-lg py-1 border-b border-gray-100 last:border-none pl-2";
-                    li.innerHTML = `<span>${item.name}</span> <span class="font-bold text-gray-900">${displayWeight}g</span>`;
+                    li.innerHTML = `<span>${item.name}</span> <span class="font-bold text-gray-900">${scaledWeight}g</span>`;
                     listContainer.appendChild(li);
                 });
             }
@@ -702,8 +699,7 @@
             renderSection("Base Dough", recipe.dough, true);
             renderSection("Inclusions / Extras", recipe.inclusions, false);
 
-            const displayTotal = totalYield.toFixed(1).endsWith('.0') ? totalYield.toFixed(1).slice(0, -2) : totalYield.toFixed(1);
-            totalYieldContainer.innerText = `${displayTotal}g`;
+            totalYieldContainer.innerText = `${totalYield}g`;
         }
 
         // Initialize all three cards on first load
